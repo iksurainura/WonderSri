@@ -15,7 +15,7 @@ function Vendor() {
   const router = useRouter();
 
   const handleViewMore = () => {
-    router.push("/vendor-services");
+    router.push("/Vendor");
   };
 
   return (
