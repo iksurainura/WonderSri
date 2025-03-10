@@ -7,18 +7,19 @@ const Navbar = () => {
       {/* Container for Navbar */}
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-4 flex justify-between items-center">
         {/* Logo Section */}
-        <motion.div
+        <a href="/">
+          <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           className="flex items-center"
-        >
+          >
           <div className="w-10 h-10 bg-[#1f34c1] rounded-full flex items-center justify-center">
             <img src="./Logo.png" alt="WonderSri" className="h-6 w-6" />
           </div>
           <h3 className="text-2xl font-bold text-[#fbfbfb] ml-2">WonderSri</h3>
         </motion.div>
-
+        </a> 
         {/* Navigation Links (Desktop) */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}

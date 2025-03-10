@@ -1,12 +1,13 @@
-import Image from "next/image";
 import HeroSection from "./components/HeroSection";
-import PopupNotification from "./components/PopupNotification";
-
+import LoadingScreen from "./components/LoadingScreen";
+import { Suspense } from "react";
 export default function Home() {
   return (
 <>
-<PopupNotification/>
+<Suspense fallback={<LoadingScreen />}>
 <HeroSection/>
+</Suspense>
+
 </>
   );
 }
