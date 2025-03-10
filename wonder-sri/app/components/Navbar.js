@@ -48,6 +48,7 @@ const Navbar = () => {
               focus:ring-2
               focus:ring-blue-300
               focus:ring-opacity-50
+              playwrite-it-moderna
             "
           >
             Find My Booking

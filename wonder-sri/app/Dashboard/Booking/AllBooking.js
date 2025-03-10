@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from 'react';
 
 const AllBooking = () => {
@@ -29,7 +30,6 @@ const AllBooking = () => {
     fetchBookings();
   }, []);
 
-  // Function to convert timeSlot to readable format
   const formatTimeSlot = (slot) => {
     const timeSlots = {
       SLOT_1: '9:00 AM - 11:00 AM',
@@ -40,7 +40,6 @@ const AllBooking = () => {
     return timeSlots[slot] || slot;
   };
 
-  // Function to get status badge style
   const getStatusBadgeClass = (status) => {
     switch (status.toLowerCase()) {
       case 'confirmed':
