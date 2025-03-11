@@ -51,7 +51,9 @@ export default function BoatTourDashboard() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-black mb-6">Boat Tour Dashboard</h1>
+        <h1 className="text-3xl font-bold text-black mb-6">
+          Boat Tour Dashboard
+        </h1>
         <form onSubmit={handleTourSubmit} className="space-y-6">
           <Upload
             images={images}
@@ -61,7 +63,10 @@ export default function BoatTourDashboard() {
             onImageChange={handleImageChange}
           />
           <div>
-            <label htmlFor="tour-name" className="block text-sm font-medium text-black mb-1">
+            <label
+              htmlFor="tour-name"
+              className="block text-sm font-medium text-black mb-1"
+            >
               Name
             </label>
             <input
@@ -76,7 +81,10 @@ export default function BoatTourDashboard() {
             />
           </div>
           <div>
-            <label htmlFor="tour-capacity" className="block text-sm font-medium text-black mb-1">
+            <label
+              htmlFor="tour-capacity"
+              className="block text-sm font-medium text-black mb-1"
+            >
               Capacity
             </label>
             <input
@@ -91,7 +99,10 @@ export default function BoatTourDashboard() {
             />
           </div>
           <div>
-            <label htmlFor="tour-description" className="block text-sm font-medium text-black mb-1">
+            <label
+              htmlFor="tour-description"
+              className="block text-sm font-medium text-black mb-1"
+            >
               Description
             </label>
             <textarea
@@ -106,7 +117,10 @@ export default function BoatTourDashboard() {
             />
           </div>
           <div>
-            <label htmlFor="tour-location" className="block text-sm font-medium text-black mb-1">
+            <label
+              htmlFor="tour-location"
+              className="block text-sm font-medium text-black mb-1"
+            >
               Location
             </label>
             <input
@@ -121,7 +135,11 @@ export default function BoatTourDashboard() {
             />
           </div>
           {error && (
-            <p className="text-red-500 text-center text-black" role="alert" aria-live="assertive">
+            <p
+              className="text-red-500 text-center text-black"
+              role="alert"
+              aria-live="assertive"
+            >
               {error}
             </p>
           )}

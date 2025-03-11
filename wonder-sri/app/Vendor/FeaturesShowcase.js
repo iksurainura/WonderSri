@@ -19,7 +19,11 @@ function Featureshow() {
 
   const textVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   // Sinhala content
@@ -60,7 +64,8 @@ function Featureshow() {
         description:
           "ඔබේ වෙන් කිරීම් සඳහා ඩිජිටල් වේදිකාවක් සපයමු, එමඟින් ඔබේ ව්‍යාපාරය කාර්යක්ෂමව කළමනාකරණය කළ හැකිය.",
         icon: <Calendar className="h-8 w-8 text-blue-600" />,
-        image: "https://www.bookitlive.net/content/wp-content/uploads/2021/03/How-does-booking-system-work.jpg",
+        image:
+          "https://www.bookitlive.net/content/wp-content/uploads/2021/03/How-does-booking-system-work.jpg",
       },
     ],
   };
@@ -103,7 +108,8 @@ function Featureshow() {
         description:
           "We provide a digital platform for managing your bookings, helping you run your business efficiently.",
         icon: <Calendar className="h-8 w-8 text-blue-600" />,
-        image: "https://www.bookitlive.net/content/wp-content/uploads/2021/03/How-does-booking-system-work.jpg",
+        image:
+          "https://www.bookitlive.net/content/wp-content/uploads/2021/03/How-does-booking-system-work.jpg",
       },
     ],
   };
@@ -116,7 +122,9 @@ function Featureshow() {
       {/* Language Toggle Button */}
       <div className="flex justify-end max-w-6xl mx-auto px-4 md:px-8">
         <button
-          onClick={() => setLanguage(language === "sinhala" ? "english" : "sinhala")}
+          onClick={() =>
+            setLanguage(language === "sinhala" ? "english" : "sinhala")
+          }
           className="bg-white text-blue-600 font-semibold py-2 px-4 rounded-full hover:bg-blue-50 transition-all text-sm"
         >
           {language === "sinhala" ? "English" : "සිංහල"}
@@ -163,7 +171,9 @@ function Featureshow() {
                   <h3 className="text-lg font-semibold text-gray-800 mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">{feature.description}</p>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {feature.description}
+                  </p>
                 </CardContent>
               </Card>
             </motion.div>

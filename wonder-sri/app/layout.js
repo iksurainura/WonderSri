@@ -1,6 +1,8 @@
-import { Geist, Geist_Mono,Noto_Sans_Sinhala } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Sinhala } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import PopupNotification from "./components/PopupNotification";
 
 // Importing custom fonts from Google Fonts
 const geistSans = Geist({
@@ -8,8 +10,8 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 const sinhalaFont = Noto_Sans_Sinhala({
-  subsets: ['sinhala'],
-  weight: ['400', '700'],
+  subsets: ["sinhala"],
+  weight: ["400", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -31,11 +33,17 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ margin: 0, padding: 0, minHeight: "100vh", display: "flex", flexDirection: "column" }}
+        style={{
+          margin: 0,
+          padding: 0,
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
         {/* Navbar */}
         <Navbar />
-
+       
         {/* Main content with padding to avoid overlap with the fixed Navbar */}
         <div style={{ flex: 1, paddingTop: "80px" }}>{children}</div>
       </body>

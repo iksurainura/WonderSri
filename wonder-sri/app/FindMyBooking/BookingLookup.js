@@ -64,14 +64,10 @@ export default function BookingLookup() {
           </button>
         </form>
 
-        {loading && (
-          <div className="text-white text-center">Loading...</div>
-        )}
+        {loading && <div className="text-white text-center">Loading...</div>}
 
         {error && (
-          <div className="bg-red-500 text-white p-2 rounded">
-            {error}
-          </div>
+          <div className="bg-red-500 text-white p-2 rounded">{error}</div>
         )}
 
         {booking && (
@@ -81,36 +77,55 @@ export default function BookingLookup() {
             </h3>
             <div className="space-y-3">
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">Boat:</span>
+                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
+                  Boat:
+                </span>
                 <span className="text-gray-800">{booking.boatName}</span>
               </div>
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">Date:</span>
+                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
+                  Date:
+                </span>
                 <span className="text-gray-800">{booking.bookingDate}</span>
               </div>
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">Time:</span>
+                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
+                  Time:
+                </span>
                 <span className="text-gray-800">{booking.timeSlot}</span>
               </div>
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">Status:</span>
-                <span className={`text-gray-800 font-medium ${
-                  booking.status === 'Confirmed' ? 'text-green-600' : 
-                  booking.status === 'Pending' ? 'text-yellow-600' : 'text-red-600'
-                }`}>
+                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
+                  Status:
+                </span>
+                <span
+                  className={`text-gray-800 font-medium ${
+                    booking.status === "Confirmed"
+                      ? "text-green-600"
+                      : booking.status === "Pending"
+                      ? "text-yellow-600"
+                      : "text-red-600"
+                  }`}
+                >
                   {booking.status}
                 </span>
               </div>
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">User:</span>
+                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
+                  User:
+                </span>
                 <span className="text-gray-800">{booking.userName}</span>
               </div>
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">Email:</span>
+                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
+                  Email:
+                </span>
                 <span className="text-gray-800">{booking.userEmail}</span>
               </div>
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">Phone:</span>
+                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
+                  Phone:
+                </span>
                 <span className="text-gray-800">{booking.userPhone}</span>
               </div>
             </div>

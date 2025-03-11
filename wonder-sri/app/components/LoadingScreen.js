@@ -14,9 +14,9 @@ export default function LoadingScreen() {
   }, []);
 
   return (
-    <div 
+    <div
       className={`${
-        isVisible ? 'opacity-100' : 'opacity-0'
+        isVisible ? "opacity-100" : "opacity-0"
       } fixed inset-0 z-50 transition-opacity duration-500 ease-in-out`}
     >
       {/* ... rest of your loading screen JSX ... */}
