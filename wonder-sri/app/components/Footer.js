@@ -1,57 +1,89 @@
-import React from "react";
+import React from 'react';
+import { FaEnvelope, FaPhone, FaInstagram, FaFacebook, FaYoutube, FaTiktok, FaLinkedin } from 'react-icons/fa';
+import { RiCustomerService2Fill } from 'react-icons/ri'; // For customer service icon
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 py-4">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-center items-center text-center sm:text-left">
-        {/* Main Text */}
-        <p className="text-gray-600 text-sm">
-          Booking.com part of Booking Holdings Inc., the world leader in online travel and related services.{" "}
-          <span className="text-gray-600">
-            Booking.com © 1996-2025 Booking.com™ All rights reserved.
-          </span>
+    <footer className="bg-gradient-to-r from-blue-400 to-blue-300 text-center py-6">
+      <div className="container mx-auto px-4">
+        {/* Butterfly Logo or Icon */}
+        <div className="flex justify-center mb-4">
+          <img
+            src="/wondersrilogo.jpg" // Replace with your butterfly logo
+            alt="Wonder Sri Logo"
+            className="h-12 w-12"
+          />
+        </div>
+
+        {/* Tagline */}
+        <p className="text-sm text-gray-700 mb-4">
+          Discover the wonders of Sri Lanka with <span className="font-semibold text-blue-600">Wonder Sri</span>.
         </p>
 
-        {/* Links with Colored Dots */}
-        <div className="flex items-center space-x-4 mt-2 sm:mt-0 sm:ml-4">
+        {/* Contact Information */}
+        <div className="flex flex-col items-center space-y-2 mb-4">
+          <div className="flex items-center space-x-2 text-gray-700">
+            <RiCustomerService2Fill className="text-blue-600" />
+            <span>Customer Support: 24/7</span>
+          </div>
+          <div className="flex items-center space-x-2 text-gray-700">
+            <FaEnvelope className="text-blue-600" />
+            <a href="mailto:info@wondersri.com" className="hover:text-blue-600">
+            wordersri.services@gmail.com
+            </a>
+          </div>
+          <div className="flex items-center space-x-2 text-gray-700">
+            <FaPhone className="text-blue-600" />
+            <a href="tel:+94112345678" className="hover:text-blue-600">
+              0754690501
+            </a>
+          </div>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="flex justify-center space-x-4 mb-4">
           <a
-            href="https://www.booking.com"
-            className="text-blue-600 font-medium text-sm hover:underline"
+            href="https://www.instagram.com/wonde_rsri/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 hover:text-blue-600"
           >
-            Booking.com
+            <FaInstagram className="text-xl" />
           </a>
-          <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
           <a
-            href="https://www.priceline.com"
-            className="text-blue-600 font-medium text-sm hover:underline"
-            style={{ color: "#FF6200" }} // Priceline orange
+            href="https://www.tiktok.com/@wondersri"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 hover:text-blue-600"
           >
-            priceline
+            <FaTiktok className="text-xl" />
           </a>
-          <span className="w-2 h-2 bg-yellow-400 rounded-full"></span>
           <a
-            href="https://www.kayak.com"
-            className="text-blue-600 font-medium text-sm hover:underline"
-            style={{ color: "#FFC107" }} // KAYAK yellow
+            href="https://www.linkedin.com/company/wonder-sri/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 hover:text-blue-600"
           >
-            KAYAK
+            <FaLinkedin className="text-xl" />
           </a>
-          <span className="w-2 h-2 bg-green-500 rounded-full"></span>
           <a
-            href="https://www.agoda.com"
-            className="text-blue-600 font-medium text-sm hover:underline"
-            style={{ color: "#00C4B4" }} // Agoda teal
+            href="https://www.youtube.com/@WonderSri-o5c"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 hover:text-blue-600"
           >
-            agoda
+            <FaYoutube className="text-xl" />
           </a>
-          <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-          <a
-            href="https://www.opentable.com"
-            className="text-blue-600 font-medium text-sm hover:underline"
-            style={{ color: "#DA3743" }} // OpenTable red
-          >
-            OpenTable
-          </a>
+        </div>
+
+        {/* Copyright and Legal */}
+        <div className="text-sm text-gray-600">
+          <p className="mb-2">
+            © {new Date().getFullYear()} Wonder Sri. All rights reserved.
+          </p>
+          <p>
+            Part of the <span className="text-blue-600">Wonder Sri Group</span>.
+          </p>
         </div>
       </div>
     </footer>

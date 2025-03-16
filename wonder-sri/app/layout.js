@@ -46,6 +46,7 @@ export default function RootLayout({ children }) {
        
         {/* Main content with padding to avoid overlap with the fixed Navbar */}
         <div style={{ flex: 1, paddingTop: "80px" }}>{children}</div>
+        <Footer/>
       </body>
     </html>
   );
