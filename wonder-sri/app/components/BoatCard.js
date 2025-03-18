@@ -1,6 +1,11 @@
+"use client"; // Add this since we're using client-side features
+import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation"; // Import useRouter from Next.js
 
 export default function Activities() {
+  const router = useRouter(); // Initialize the router
+
   const activities = [
     {
       title: "Madu River Safari",
@@ -37,64 +42,101 @@ export default function Activities() {
     },
   ];
 
+  const handleBookNow = (title) => {
+    // Redirect to the booking page with the activity title as a query parameter
+    router.push(`/Booking?title=${encodeURIComponent(title)}`);
+  };
+
   return (
     <>
       <div className="bg-blue-500 w-full pt-16">
         <div className="max-w-6xl mx-auto py-8 px-4 md:px-8 bg-blue-200 rounded-lg">
-          <img src="./offer1.png" alt="" className="w-full mb-6 rounded-lg" />
-          
+          <Image src="./offer1.png" alt="" className="w-full mb-6 rounded-lg" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {activities.map((activity, index) => (
               <div
                 key={index}
                 className="rounded-lg shadow-md bg-white transform transition duration-300 hover:scale-105 overflow-hidden"
               >
-                {/* Image Section */}
                 <div className="relative group">
-                  <img
+                  <Image
                     className="w-full h-48 object-cover transform transition duration-300 group-hover:scale-105"
                     src={activity.imageUrl}
                     alt={activity.title}
                   />
-                  {/* Overlay Badge */}
                   <span className="absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold text-white bg-red-600">
                     Flash deal
                   </span>
                 </div>
-
-                {/* Content Section */}
                 <div className="p-4 mt-2">
-                  <h3 className="text-lg font-extrabold text-blue-800 mb-1" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <h3
+                    className="text-lg font-extrabold text-blue-800 mb-1"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     {activity.title}
                   </h3>
-                  <p className="text-blue-700 text-sm mb-2 line-clamp-2" style={{ fontFamily: "Roboto, sans-serif" }}>
+                  <p
+                    className="text-blue-700 text-sm mb-2 line-clamp-2"
+                    style={{ fontFamily: "Roboto, sans-serif" }}
+                  >
                     {activity.description}
                   </p>
-                  <p className="text-blue-600 text-sm mb-2 line-clamp-2" style={{ fontFamily: "Roboto, sans-serif" }}>
-                    <span className="font-medium">Duration:</span> {activity.duration}
+                  <p
+                    className="text-blue-600 text-sm mb-2 line-clamp-2"
+                    style={{ fontFamily: "Roboto, sans-serif" }}
+                  >
+                    <span className="font-medium">Duration:</span>{" "}
+                    {activity.duration}
                   </p>
                   <div className="flex justify-between items-center mb-2">
                     <div>
-                      <p className="text-gray-500 text-sm line-through" style={{ fontFamily: "Open Sans, sans-serif" }}>
+                      <p
+                        className="text-gray-500 text-sm line-through"
+                        style={{ fontFamily: "Open Sans, sans-serif" }}
+                      >
                         {activity.originalPrice}
                       </p>
-                      <p className="text-md font-semibold text-green-700" style={{ fontFamily: "Poppins, sans-serif" }}>
+                      <p
+                        className="text-md font-semibold text-green-700"
+                        style={{ fontFamily: "Poppins, sans-serif" }}
+                      >
                         {activity.discountedPrice}
                       </p>
-                      <p className="text-red-600 text-xs font-medium" style={{ fontFamily: "Open Sans, sans-serif" }}>
+                      <p
+                        className="text-red-600 text-xs font-medium"
+                        style={{ fontFamily: "Open Sans, sans-serif" }}
+                      >
                         Limited Time Offer!
                       </p>
                     </div>
-                    <span className="text-yellow-500 text-sm" style={{ fontFamily: "Roboto, sans-serif" }}>
+                    <span
+                      className="text-yellow-500 text-sm"
+                      style={{ fontFamily: "Roboto, sans-serif" }}
+                    >
                       {activity.rating}
                     </span>
                   </div>
-                  <button 
-                    className="bg-blue-800 text-white text-sm py-2 px-4 rounded hover:bg-blue-900 w-full transition-colors duration-200"
-                    style={{ fontFamily: "Poppins, sans-serif", fontWeight: "600" }}
-                  >
-                    Book Now
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      className="flex-1 bg-blue-800 text-white text-sm py-2 px-4 rounded hover:bg-blue-900 transition-colors duration-200"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        fontWeight: "600",
+                      }}
+                    >
+                      More Details
+                    </button>
+                    <button
+                      onClick={() => handleBookNow(activity.title)}
+                      className="flex-1 bg-blue-400 text-white text-sm py-2 px-4 rounded hover:bg-blue-500 transition-colors duration-200"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Book Now
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

@@ -1,6 +1,16 @@
-import React from 'react';
-import { FaEnvelope, FaPhone, FaInstagram, FaFacebook, FaYoutube, FaTiktok, FaLinkedin } from 'react-icons/fa';
-import { RiCustomerService2Fill } from 'react-icons/ri'; // For customer service icon
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaInstagram,
+  FaFacebook,
+  FaYoutube,
+  FaTiktok,
+  FaLinkedin,
+} from "react-icons/fa";
+import { RiCustomerService2Fill } from "react-icons/ri"; // For customer service icon
 
 const Footer = () => {
   return (
@@ -8,16 +18,18 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         {/* Butterfly Logo or Icon */}
         <div className="flex justify-center mb-4">
-          <img
+          <Image
+            width={12}
+            height={12}
             src="/wondersrilogo.jpg" // Replace with your butterfly logo
             alt="Wonder Sri Logo"
-            className="h-12 w-12"
           />
         </div>
 
         {/* Tagline */}
         <p className="text-sm text-gray-700 mb-4">
-          Discover the wonders of Sri Lanka with <span className="font-semibold text-blue-600">Wonder Sri</span>.
+          Discover the wonders of Sri Lanka with{" "}
+          <span className="font-semibold text-blue-600">Wonder Sri</span>.
         </p>
 
         {/* Contact Information */}
@@ -28,52 +40,52 @@ const Footer = () => {
           </div>
           <div className="flex items-center space-x-2 text-gray-700">
             <FaEnvelope className="text-blue-600" />
-            <a href="mailto:info@wondersri.com" className="hover:text-blue-600">
-            wordersri.services@gmail.com
-            </a>
+            <Link href="mailto:info@wondersri.com" className="hover:text-blue-600">
+              wordersri.services@gmail.com
+            </Link>
           </div>
           <div className="flex items-center space-x-2 text-gray-700">
             <FaPhone className="text-blue-600" />
-            <a href="tel:+94112345678" className="hover:text-blue-600">
+            <Link href="tel:+94112345678" className="hover:text-blue-600">
               0754690501
-            </a>
+            </Link>
           </div>
         </div>
 
         {/* Social Media Links */}
         <div className="flex justify-center space-x-4 mb-4">
-          <a
+          <Link
             href="https://www.instagram.com/wonde_rsri/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-700 hover:text-blue-600"
           >
             <FaInstagram className="text-xl" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.tiktok.com/@wondersri"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-700 hover:text-blue-600"
           >
             <FaTiktok className="text-xl" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.linkedin.com/company/wonder-sri/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-700 hover:text-blue-600"
           >
             <FaLinkedin className="text-xl" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.youtube.com/@WonderSri-o5c"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-700 hover:text-blue-600"
           >
             <FaYoutube className="text-xl" />
-          </a>
+          </Link>
         </div>
 
         {/* Copyright and Legal */}

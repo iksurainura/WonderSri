@@ -1,5 +1,6 @@
 "use client";
-
+import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -161,7 +162,7 @@ function Featureshow() {
               className="flex justify-center"
             >
               <Card className="w-full max-w-xs rounded-xl shadow-lg overflow-hidden bg-white hover:shadow-2xl transition-all">
-                <img
+                <Image
                   src={feature.image}
                   alt={feature.title}
                   className="h-36 w-full object-cover"

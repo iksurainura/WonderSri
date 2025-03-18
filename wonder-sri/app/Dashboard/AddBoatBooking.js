@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Upload, X } from "lucide-react";
@@ -206,7 +206,7 @@ const AllBooking = () => {
             <div className="mt-4 grid grid-cols-3 gap-3">
               {formData.images.map((image, index) => (
                 <div key={index} className="relative group">
-                  <img
+                  <Image
                     src={image.url}
                     alt={`Preview ${index}`}
                     className="w-full h-24 object-cover rounded-lg"

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-
+import Image from "next/image";
 function HeroSection() {
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
@@ -54,7 +54,7 @@ function HeroSection() {
           animate={controls}
           variants={imageVariants}
         >
-          <img
+          <Image
             src="./Logo.png"
             alt="Travel destination"
             className="w-3/4 md:w-auto object-contain max-h-64 md:max-h-full"

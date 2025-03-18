@@ -1,10 +1,16 @@
 "use client";
-
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card, CardContent } from "./card";
-import { Video as VideoIcon, Gift, Wrench, Users, Calendar } from "lucide-react";
+import {
+  Video as VideoIcon,
+  Gift,
+  Wrench,
+  Users,
+  Calendar,
+} from "lucide-react";
 
 // Define content object
 const content = {
@@ -69,7 +75,7 @@ export default function VendorPage() {
           {/* Circle with Cobalt Blue Background */}
           <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-white shadow-lg bg-[#0047AB] bg-opacity-50">
             {/* Your Logo in the Background of Circle */}
-            <img
+            <Image
               src="/wondersrilogo.jpg" // Ensure this file is in the public folder
               alt="Logo"
               className="absolute inset-0 w-full h-full object-cover"
@@ -95,9 +101,11 @@ export default function VendorPage() {
       </div>
 
       {/* Features Section */}
-      <div id="features-section" className="bg-blue-500 pt-16 pb-20" ref={ref}>
-  
-      </div>
+      <div
+        id="features-section"
+        className="bg-blue-500 pt-16 pb-20"
+        ref={ref}
+      ></div>
     </div>
   );
 }

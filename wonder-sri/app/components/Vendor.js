@@ -1,6 +1,7 @@
 "use client";
-
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 // Import Heroicons
 import {
   UserGroupIcon,
@@ -31,7 +32,7 @@ function Vendor() {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Left Side: Image and Stats */}
           <div className="lg:w-1/2">
-            <img
+            <Image
               src="/vendor.png"
               alt="Vendor Digitalization"
               className="w-full h-auto rounded-lg shadow-lg mb-6 transform hover:scale-102 transition-transform duration-300"
@@ -93,12 +94,12 @@ function Vendor() {
             <p className="mt-4 text-sm flex items-center gap-2">
               <ChatBubbleLeftRightIcon className="h-5 w-5" />
               Questions?{" "}
-              <a
+              <Link
                 href="/Vendor"
                 className="underline hover:text-blue-200 transition-colors"
               >
                 Contact us today!
-              </a>
+              </Link>
             </p>
           </div>
         </div>
