@@ -1,7 +1,6 @@
 "use client"; // Add this since we're using client-side features
 import Image from "next/image";
 import React from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Activities() {
