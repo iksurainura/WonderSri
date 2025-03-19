@@ -33,6 +33,8 @@ function Vendor() {
           {/* Left Side: Image and Stats */}
           <div className="lg:w-1/2">
             <Image
+            width={500}
+            height={500}
               src="/vendor.png"
               alt="Vendor Digitalization"
               className="w-full h-auto rounded-lg shadow-lg mb-6 transform hover:scale-102 transition-transform duration-300"

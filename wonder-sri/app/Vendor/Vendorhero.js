@@ -76,6 +76,8 @@ export default function VendorPage() {
           <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-white shadow-lg bg-[#0047AB] bg-opacity-50">
             {/* Your Logo in the Background of Circle */}
             <Image
+            height={100}
+            width={100}
               src="/wondersrilogo.jpg" // Ensure this file is in the public folder
               alt="Logo"
               className="absolute inset-0 w-full h-full object-cover"
@@ -103,7 +105,7 @@ export default function VendorPage() {
       {/* Features Section */}
       <div
         id="features-section"
-        className="bg-blue-500 pt-16 pb-20"
+        className="bg-blue-500 pt-16 "
         ref={ref}
       ></div>
     </div>

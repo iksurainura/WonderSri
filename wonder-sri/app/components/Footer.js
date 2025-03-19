@@ -5,7 +5,6 @@ import {
   FaEnvelope,
   FaPhone,
   FaInstagram,
-  FaFacebook,
   FaYoutube,
   FaTiktok,
   FaLinkedin,
@@ -17,16 +16,16 @@ const Footer = () => {
     <footer className="bg-gradient-to-r from-blue-400 to-blue-300 text-center py-6">
       <div className="container mx-auto px-4">
         {/* Butterfly Logo or Icon */}
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-4 ">
           <Image
-            width={12}
-            height={12}
+            width={48}
+            height={48}
             src="/wondersrilogo.jpg" // Replace with your butterfly logo
             alt="Wonder Sri Logo"
+            className=" object-cover"
           />
         </div>
 
-        {/* Tagline */}
         <p className="text-sm text-gray-700 mb-4">
           Discover the wonders of Sri Lanka with{" "}
           <span className="font-semibold text-blue-600">Wonder Sri</span>.
@@ -40,7 +39,10 @@ const Footer = () => {
           </div>
           <div className="flex items-center space-x-2 text-gray-700">
             <FaEnvelope className="text-blue-600" />
-            <Link href="mailto:info@wondersri.com" className="hover:text-blue-600">
+            <Link
+              href="mailto:info@wondersri.com"
+              className="hover:text-blue-600"
+            >
               wordersri.services@gmail.com
             </Link>
           </div>

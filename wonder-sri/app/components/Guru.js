@@ -22,9 +22,11 @@ function Guru() {
             >
               {/* Image with Rounded Corners */}
               <Image
-                src="./app.png"
+              width={1000}
+              height={1000}
+                src="/app.png"
                 alt="Cart"
-                className="w-full h-auto rounded-lg"
+                className=" rounded-lg"
               />
             </motion.div>
           </div>

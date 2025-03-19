@@ -1,10 +1,11 @@
 "use client"; // Add this since we're using client-side features
 import Image from "next/image";
 import React from "react";
-import { useRouter } from "next/navigation"; // Import useRouter from Next.js
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Activities() {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   const activities = [
     {
@@ -51,7 +52,14 @@ export default function Activities() {
     <>
       <div className="bg-blue-500 w-full pt-16">
         <div className="max-w-6xl mx-auto py-8 px-4 md:px-8 bg-blue-200 rounded-lg">
-          <Image src="./offer1.png" alt="" className="w-full mb-6 rounded-lg" />
+          {/* Local Image */}
+          <Image
+            src="/offer1.png" // Path relative to the public folder
+            alt="offer"
+            width={1200} // Set width
+            height={300} // Set height
+            className="mb-6 rounded-lg object-cover"
+          />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {activities.map((activity, index) => (
               <div
@@ -59,10 +67,13 @@ export default function Activities() {
                 className="rounded-lg shadow-md bg-white transform transition duration-300 hover:scale-105 overflow-hidden"
               >
                 <div className="relative group">
-                  <Image
-                    className="w-full h-48 object-cover transform transition duration-300 group-hover:scale-105"
+                  {/* External Image */}
+                  <img
                     src={activity.imageUrl}
                     alt={activity.title}
+                    width={400} // Set consistent width
+                    height={300} // Set consistent height
+                    className="object-cover w-full h-64 transform transition duration-300 group-hover:scale-105"
                   />
                   <span className="absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold text-white bg-red-600">
                     Flash deal

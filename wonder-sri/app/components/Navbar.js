@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+
 const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full bg-blue-500 z-50">
@@ -18,8 +19,10 @@ const Navbar = () => {
             {/* Circular Logo (No White Background) */}
             <div className="h-12 w-12 rounded-full overflow-hidden">
               <Image
-                src="./wondersrilogo.jpg" // Ensure this image has a transparent background
+                src="/wondersrilogo.jpg" // Absolute path to the image in the public directory
                 alt="WonderSri"
+                width={48} // Set width
+                height={48} // Set height
                 className="h-full w-full object-cover"
               />
             </div>

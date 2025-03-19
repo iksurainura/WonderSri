@@ -55,9 +55,11 @@ function HeroSection() {
           variants={imageVariants}
         >
           <Image
-            src="./Logo.png"
+            height={150}
+            width={200}
+            src="/Logo.png"
             alt="Travel destination"
-            className="w-3/4 md:w-auto object-contain max-h-64 md:max-h-full"
+            className=" object-contain max-h-84 md:max-h-full"
           />
         </motion.div>
       </div>

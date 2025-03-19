@@ -207,6 +207,7 @@ const AllBooking = () => {
               {formData.images.map((image, index) => (
                 <div key={index} className="relative group">
                   <Image
+                  fill
                     src={image.url}
                     alt={`Preview ${index}`}
                     className="w-full h-24 object-cover rounded-lg"

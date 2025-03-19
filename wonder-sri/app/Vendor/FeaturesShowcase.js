@@ -119,7 +119,7 @@ function Featureshow() {
   const content = language === "sinhala" ? sinhalaContent : englishContent;
 
   return (
-    <div className="bg-blue-500 w-full pt-16" ref={ref}>
+    <div className="bg-blue-500 w-full " ref={ref}>
       {/* Language Toggle Button */}
       <div className="flex justify-end max-w-6xl mx-auto px-4 md:px-8">
         <button
@@ -162,7 +162,7 @@ function Featureshow() {
               className="flex justify-center"
             >
               <Card className="w-full max-w-xs rounded-xl shadow-lg overflow-hidden bg-white hover:shadow-2xl transition-all">
-                <Image
+                <img
                   src={feature.image}
                   alt={feature.title}
                   className="h-36 w-full object-cover"
