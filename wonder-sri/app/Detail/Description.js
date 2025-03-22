@@ -7,13 +7,11 @@ import Link from "next/link";
 export const metadata = {
   title: "Madu River Boat Safari Balapitiya - Booking",
   description:
-    "Book your Madu River Boat Safari in Balapitiya. Enjoy a 3-4 hour boat ride through the scenic river with free cancellation and flexible booking options.",
+    "Book your Madu River Boat Safari in Balapitiya&apos;s. Enjoy a 3-4 hour boat ride through the scenic river with free cancellation and flexible booking options.",
 };
 
-export default function MaduRiverBooking({ boatId = "MADU001" }) {
+export default function Description({ boatId = "MADU001" }) {
   const router = useRouter();
-  const [selectedDate, setSelectedDate] = useState("");
-
   const places = [
     { location: "Maha Gonaduwa", icon: "🏝️" },
     { location: "Meraladuwa", icon: "🌿" },
@@ -27,7 +25,7 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
     { location: "Mahala Duwa", icon: "🧘" },
     { location: "Mimaduwa", icon: "🦋" },
     { location: "Kothduwa Rajamaha Viharaya", icon: "🙏" },
-    { location: "Sandya's Juice Bar", icon: "🍹" },
+    { location: "Sandya's Juice Bar", icon: "🍹" }, // Already fixed
     { location: "Kirala Drink Bar", icon: "🥤" },
     { location: "Madu Ganga Fish Therapy", icon: "🐟" },
     { location: "Madu River estuary (Sea Bath place) END", icon: "🏊" },
@@ -35,14 +33,6 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
 
   const handleBookNow = (boatId) => {
     router.push(`/Booking?title=${encodeURIComponent(boatId)}`);
-  };
-
-  const handleBooking = () => {
-    if (selectedDate) {
-      router.push(`/booking/confirm?boatId=${boatId}&date=${selectedDate}`);
-    } else {
-      alert("Please select a date before booking");
-    }
   };
 
   return (
@@ -56,7 +46,7 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
                 Madu River Boat Safari
               </h1>
               <p className="text-gray-600 mb-6 text-lg">
-                Embark on an unforgettable journey through Sri Lanka's coastal wonders
+                Embark on an unforgettable journey through Sri Lanka&apos;s coastal wonders
               </p>
 
               {/* Features */}
@@ -97,7 +87,7 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
                 <h2 className="text-3xl font-semibold text-gray-900 mb-6">
                   Places We Are Visiting
                 </h2>
-                <div className="grid grid-cols-2 gap-6"> {/* Changed to 2 columns */}
+                <div className="grid grid-cols-2 gap-6">
                   {places.map((place, idx) => (
                     <div
                       key={idx}
