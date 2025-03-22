@@ -10,34 +10,33 @@ export const metadata = {
   description:
     "Book your Madu River Boat Safari in Balapitiya. Enjoy a 3-4 hour boat ride through the scenic river with free cancellation and flexible booking options.",
 };
+
 export default function MaduRiverBooking({ boatId = "MADU001" }) {
   const router = useRouter();
-  
-const handleBookNow = (boatId) => {
-  // Redirect to the booking page with the activity title as a query parameter
-  router.push(`/Booking?title=${encodeURIComponent(boatId)}`);
-};
-
   const [selectedDate, setSelectedDate] = useState("");
 
   const places = [
-    { location: "Maha Gonaduwa", icon: "🏝️" },          // Island
-    { location: "Meraladuwa", icon: "🌿" },             // Mangrove
-    { location: "Kuruluduwa", icon: "🐦" },             // Wildlife
-    { location: "Naiduwa", icon: "🗿" },                // Culture
-    { location: "Kadol Kalle", icon: "🌱" },            // Ecosystem
-    { location: "Dimiduwa", icon: "🌅" },              // Natural beauty
-    { location: "Sathapaheduwa", icon: "🏡" },          // Traditions
-    { location: "Mad Duwa", icon: "🏞️" },             // Larger island
-    { location: "Kothduwa", icon: "⛩️" },             // Temple
-    { location: "Mahala Duwa", icon: "🧘" },            // Relaxation
-    { location: "Mimaduwa", icon: "🦋" },              // Biodiversity
+    { location: "Maha Gonaduwa", icon: "🏝️" }, // Island
+    { location: "Meraladuwa", icon: "🌿" }, // Mangrove
+    { location: "Kuruluduwa", icon: "🐦" }, // Wildlife
+    { location: "Naiduwa", icon: "🗿" }, // Culture
+    { location: "Kadol Kalle", icon: "🌱" }, // Ecosystem
+    { location: "Dimiduwa", icon: "🌅" }, // Natural beauty
+    { location: "Sathapaheduwa", icon: "🏡" }, // Traditions
+    { location: "Mad Duwa", icon: "🏞️" }, // Larger island
+    { location: "Kothduwa", icon: "⛩️" }, // Temple
+    { location: "Mahala Duwa", icon: "🧘" }, // Relaxation
+    { location: "Mimaduwa", icon: "🦋" }, // Biodiversity
     { location: "Kothduwa Rajamaha Viharaya", icon: "🙏" }, // Historic temple
-    { location: "Sandya's Juice Bar", icon: "🍹" },     // Drinks
-    { location: "Kirala Drink Bar", icon: "🥤" },       // Beverages
+    { location: "Sandya's Juice Bar", icon: "🍹" }, // Drinks
+    { location: "Kirala Drink Bar", icon: "🥤" }, // Beverages
     { location: "Madu Ganga Fish Therapy", icon: "🐟" }, // Fish therapy
     { location: "Madu River estuary (Sea Bath place) END", icon: "🏊" }, // Swimming
   ];
+
+  const handleBookNow = (boatId) => {
+    router.push(`/Booking?title=${encodeURIComponent(boatId)}`);
+  };
 
   const handleBooking = () => {
     if (selectedDate) {
@@ -58,7 +57,7 @@ const handleBookNow = (boatId) => {
                 Madu River Boat Safari
               </h1>
               <p className="text-gray-600 mb-6 text-lg">
-                Embark on an unforgettable journey through Sri Lanka's coastal wonders
+                Embark on an unforgettable journey through Sri Lanka&apos;s coastal wonders
               </p>
 
               {/* Features */}
@@ -120,13 +119,13 @@ const handleBookNow = (boatId) => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-3xl shadow-2xl p-6 sticky top-6">
               <div className="border-b border-gray-200 pb-4 mb-6">
-                <h3 className="font-bold text-gray-900"> For 12 pax Just </h3>
-                <h2 className="text-2xl font-bold text-gray-900"> Rs 9000 ($30)</h2>
+                <h3 className="font-bold text-gray-900">For 12 pax Just</h3>
+                <h2 className="text-2xl font-bold text-gray-900">Rs 9000 ($30)</h2>
               </div>
               <button
-              
-              onClick={() => handleBookNow(boatId)}
-              className="w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold py-4 rounded-xl hover:from-blue-600 hover:to-teal-600 transition-all shadow-lg hover:shadow-xl">
+                onClick={() => handleBookNow(boatId)}
+                className="w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold py-4 rounded-xl hover:from-blue-600 hover:to-teal-600 transition-all shadow-lg hover:shadow-xl"
+              >
                 Reserve Now
               </button>
               {/* Map */}
@@ -143,7 +142,10 @@ const handleBookNow = (boatId) => {
                 </div>
                 <div className="mt-4 text-sm text-gray-600">
                   <p><strong>Location:</strong> 58/2 Panapitiya, Karandeiniya</p>
-                  <Link href="https://maps.app.goo.gl/CZVGYgcmyq9U4zyR7" className="text-blue-600 hover:underline">
+                  <Link
+                    href="https://maps.app.goo.gl/CZVGYgcmyq9U4zyR7"
+                    className="text-blue-600 hover:underline"
+                  >
                     View Directions
                   </Link>
                 </div>
