@@ -1,10 +1,11 @@
 import React from "react";
-import DayPicker from "./DayPicker";
+import GangaBoatTravels from "./GangaBoatTravels";
+import Description from "./Description";
 
 function page() {
   return (
     <>
-      <DayPicker />
+      <GangaBoatTravels />
     </>
   );
 }

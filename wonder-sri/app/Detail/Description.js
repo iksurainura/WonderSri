@@ -1,0 +1,157 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import Link from "next/link";
+
+export const metadata = {
+  title: "Madu River Boat Safari Balapitiya - Booking",
+  description:
+    "Book your Madu River Boat Safari in Balapitiya. Enjoy a 3-4 hour boat ride through the scenic river with free cancellation and flexible booking options.",
+};
+export default function MaduRiverBooking({ boatId = "MADU001" }) {
+  const router = useRouter();
+  
+const handleBookNow = (boatId) => {
+  // Redirect to the booking page with the activity title as a query parameter
+  router.push(`/Booking?title=${encodeURIComponent(boatId)}`);
+};
+
+  const [selectedDate, setSelectedDate] = useState("");
+
+  const places = [
+    { location: "Maha Gonaduwa", icon: "🏝️" },          // Island
+    { location: "Meraladuwa", icon: "🌿" },             // Mangrove
+    { location: "Kuruluduwa", icon: "🐦" },             // Wildlife
+    { location: "Naiduwa", icon: "🗿" },                // Culture
+    { location: "Kadol Kalle", icon: "🌱" },            // Ecosystem
+    { location: "Dimiduwa", icon: "🌅" },              // Natural beauty
+    { location: "Sathapaheduwa", icon: "🏡" },          // Traditions
+    { location: "Mad Duwa", icon: "🏞️" },             // Larger island
+    { location: "Kothduwa", icon: "⛩️" },             // Temple
+    { location: "Mahala Duwa", icon: "🧘" },            // Relaxation
+    { location: "Mimaduwa", icon: "🦋" },              // Biodiversity
+    { location: "Kothduwa Rajamaha Viharaya", icon: "🙏" }, // Historic temple
+    { location: "Sandya's Juice Bar", icon: "🍹" },     // Drinks
+    { location: "Kirala Drink Bar", icon: "🥤" },       // Beverages
+    { location: "Madu Ganga Fish Therapy", icon: "🐟" }, // Fish therapy
+    { location: "Madu River estuary (Sea Bath place) END", icon: "🏊" }, // Swimming
+  ];
+
+  const handleBooking = () => {
+    if (selectedDate) {
+      router.push(`/booking/confirm?boatId=${boatId}&date=${selectedDate}`);
+    } else {
+      alert("Please select a date before booking");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Section */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 transform hover:scale-[1.01] transition-transform duration-300">
+              <h1 className="text-4xl font-extrabold text-gray-900 mb-4 bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                Madu River Boat Safari
+              </h1>
+              <p className="text-gray-600 mb-6 text-lg">
+                Embark on an unforgettable journey through Sri Lanka's coastal wonders
+              </p>
+
+              {/* Features */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                {[
+                  { icon: "↻", title: "Free Cancellation", desc: "Up to 24 hours before" },
+                  { icon: "💳", title: "Reserve Now, Pay Later", desc: "Flexible booking" },
+                  { icon: "💸", title: "Best Price Guarantee", desc: "Price match promise" },
+                ].map((feature, idx) => (
+                  <div key={idx} className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shadow-md">
+                      <span className="text-blue-600 text-xl">{feature.icon}</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-lg">{feature.title}</p>
+                      <p className="text-sm text-gray-500">{feature.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Quick Info */}
+              <div className="flex flex-wrap gap-6 mb-8">
+                {[
+                  { icon: "👶", text: "Ages 2-99" },
+                  { icon: "⏳", text: "3-4 hours" },
+                  { icon: "🗣️", text: "English Guide" },
+                ].map((info, idx) => (
+                  <div key={idx} className="flex items-center space-x-3 bg-gray-50 px-4 py-2 rounded-full shadow-sm">
+                    <span className="text-2xl">{info.icon}</span>
+                    <span className="text-gray-700 font-medium">{info.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Places We Are Visiting */}
+              <div className="mb-8">
+                <h2 className="text-3xl font-semibold text-gray-900 mb-6">
+                  Places We Are Visiting
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                  {places.map((place, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white rounded-xl p-5 flex items-center space-x-4 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100"
+                    >
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-200 to-teal-200 rounded-full flex items-center justify-center">
+                        <span className="text-2xl">{place.icon}</span>
+                      </div>
+                      <p className="font-medium text-gray-800 text-lg">{place.location}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Section - Booking Card */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-3xl shadow-2xl p-6 sticky top-6">
+              <div className="border-b border-gray-200 pb-4 mb-6">
+                <h3 className="font-bold text-gray-900"> For 12 pax Just </h3>
+                <h2 className="text-2xl font-bold text-gray-900"> Rs 9000 ($30)</h2>
+              </div>
+              <button
+              
+              onClick={() => handleBookNow(boatId)}
+              className="w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold py-4 rounded-xl hover:from-blue-600 hover:to-teal-600 transition-all shadow-lg hover:shadow-xl">
+                Reserve Now
+              </button>
+              {/* Map */}
+              <div className="mt-6">
+                <div className="h-64 rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.391627396648!2d80.04254077502898!3d6.337249193636597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae22e2e1f7b8f5b%3A0x7b53b7b2a9f5c5f!2sMadu%20River%20Boat%20Safari!5e0!3m2!1sen!2slk!4v1729812345678!5m2!1sen!2slk"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+                <div className="mt-4 text-sm text-gray-600">
+                  <p><strong>Location:</strong> 58/2 Panapitiya, Karandeiniya</p>
+                  <Link href="https://maps.app.goo.gl/CZVGYgcmyq9U4zyR7" className="text-blue-600 hover:underline">
+                    View Directions
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -18,35 +18,16 @@ export default function Activities() {
         "https://www.trawell.in/admin/images/upload/116283209Madu_River_Safari.jpg",
       rating: "★★★★☆",
     },
-    {
-      title: "Fish Therapy",
-      description:
-        "Experience the unique sensation of fish nibbling at your feet, a natural exfoliation therapy.",
-      duration: "1-Hour",
-      originalPrice: "Rs. 2,000",
-      discountedPrice: "Rs. 1,500 / per person",
-      imageUrl:
-        "https://maduriversafari.lk/wp-content/uploads/2023/09/129675053348_61528087558_1657785626_n.jpg",
-      rating: "★★★☆☆",
-    },
-    {
-      title: "Temple Visit",
-      description:
-        "Visit ancient temples and immerse yourself in the spiritual and cultural heritage.",
-      duration: "4-Hours",
-      originalPrice: "Rs. 5,000",
-      discountedPrice: "Rs. 4,000 / for 10 pax",
-      imageUrl:
-        "https://www.travels-tastes.com/data/images/barefoot.width-800.jpg",
-      rating: "★★★★★",
-    },
   ];
 
   const handleBookNow = (title) => {
     // Redirect to the booking page with the activity title as a query parameter
     router.push(`/Booking?title=${encodeURIComponent(title)}`);
   };
-
+  const detail = (title) => {
+    // Redirect to the booking page with the activity title as a query parameter
+    router.push(`/Detail?title=${encodeURIComponent(title)}`);
+  };
   return (
     <>
       <div className="bg-blue-500 w-full pt-16">
@@ -128,6 +109,7 @@ export default function Activities() {
                   </div>
                   <div className="flex gap-2">
                     <button
+                    onClick={() => detail(activity.title)}
                       className="flex-1 bg-blue-800 text-white text-sm py-2 px-4 rounded hover:bg-blue-900 transition-colors duration-200"
                       style={{
                         fontFamily: "Poppins, sans-serif",

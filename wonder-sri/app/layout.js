@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PopupNotification from "./components/PopupNotification";
+import CustomCursor from "./CustomCursor";
 
 // Importing custom fonts from Google Fonts
 const geistSans = Geist({
@@ -43,7 +44,7 @@ export default function RootLayout({ children }) {
       >
         {/* Navbar */}
         <Navbar />
-       
+       <CustomCursor/>
         {/* Main content with padding to avoid overlap with the fixed Navbar */}
         <div style={{ flex: 1, paddingTop: "80px" }}>{children}</div>
         <Footer/>
