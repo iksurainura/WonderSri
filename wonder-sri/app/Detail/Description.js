@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import Link from "next/link";
 
 export const metadata = {
@@ -16,22 +15,22 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
   const [selectedDate, setSelectedDate] = useState("");
 
   const places = [
-    { location: "Maha Gonaduwa", icon: "🏝️" }, // Island
-    { location: "Meraladuwa", icon: "🌿" }, // Mangrove
-    { location: "Kuruluduwa", icon: "🐦" }, // Wildlife
-    { location: "Naiduwa", icon: "🗿" }, // Culture
-    { location: "Kadol Kalle", icon: "🌱" }, // Ecosystem
-    { location: "Dimiduwa", icon: "🌅" }, // Natural beauty
-    { location: "Sathapaheduwa", icon: "🏡" }, // Traditions
-    { location: "Mad Duwa", icon: "🏞️" }, // Larger island
-    { location: "Kothduwa", icon: "⛩️" }, // Temple
-    { location: "Mahala Duwa", icon: "🧘" }, // Relaxation
-    { location: "Mimaduwa", icon: "🦋" }, // Biodiversity
-    { location: "Kothduwa Rajamaha Viharaya", icon: "🙏" }, // Historic temple
-    { location: "Sandya's Juice Bar", icon: "🍹" }, // Drinks
-    { location: "Kirala Drink Bar", icon: "🥤" }, // Beverages
-    { location: "Madu Ganga Fish Therapy", icon: "🐟" }, // Fish therapy
-    { location: "Madu River estuary (Sea Bath place) END", icon: "🏊" }, // Swimming
+    { location: "Maha Gonaduwa", icon: "🏝️" },
+    { location: "Meraladuwa", icon: "🌿" },
+    { location: "Kuruluduwa", icon: "🐦" },
+    { location: "Naiduwa", icon: "🗿" },
+    { location: "Kadol Kalle", icon: "🌱" },
+    { location: "Dimiduwa", icon: "🌅" },
+    { location: "Sathapaheduwa", icon: "🏡" },
+    { location: "Mad Duwa", icon: "🏞️" },
+    { location: "Kothduwa", icon: "⛩️" },
+    { location: "Mahala Duwa", icon: "🧘" },
+    { location: "Mimaduwa", icon: "🦋" },
+    { location: "Kothduwa Rajamaha Viharaya", icon: "🙏" },
+    { location: "Sandya's Juice Bar", icon: "🍹" },
+    { location: "Kirala Drink Bar", icon: "🥤" },
+    { location: "Madu Ganga Fish Therapy", icon: "🐟" },
+    { location: "Madu River estuary (Sea Bath place) END", icon: "🏊" },
   ];
 
   const handleBookNow = (boatId) => {
@@ -47,8 +46,8 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100">
-      <div className="container mx-auto px-4 py-12">
+    <div className="bg-gradient-to-b from-blue-50 to-gray-100">
+      <div className="max-w-5xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Section */}
           <div className="lg:col-span-2">
@@ -57,7 +56,7 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
                 Madu River Boat Safari
               </h1>
               <p className="text-gray-600 mb-6 text-lg">
-                Embark on an unforgettable journey through Sri Lanka&apos;s coastal wonders
+                Embark on an unforgettable journey through Sri Lanka's coastal wonders
               </p>
 
               {/* Features */}
@@ -98,7 +97,7 @@ export default function MaduRiverBooking({ boatId = "MADU001" }) {
                 <h2 className="text-3xl font-semibold text-gray-900 mb-6">
                   Places We Are Visiting
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 gap-6"> {/* Changed to 2 columns */}
                   {places.map((place, idx) => (
                     <div
                       key={idx}
