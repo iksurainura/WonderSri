@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Madu River Boat Safari Balapitiya - Booking",
   description:
-    "Book your Madu River Boat Safari in Balapitiya's. Enjoy a 3-4 hour boat ride through the scenic river with free cancellation and flexible booking options.",
+    "Book your Madu River Boat Safari in Balapitiya&lsquo;s. Enjoy a 3-4 hour boat ride through the scenic river with free cancellation and flexible booking options.",
 };
 
 export default function Description({ boatId = "MADU001" }) {
@@ -25,7 +25,7 @@ export default function Description({ boatId = "MADU001" }) {
     { location: "Mahala Duwa", icon: "🧘" },
     { location: "Mimaduwa", icon: "🦋" },
     { location: "Kothduwa Rajamaha Viharaya", icon: "🙏" },
-    { location: "Sandya's Juice Bar", icon: "🍹" },
+    { location: "Sandya&lsquo;s Juice Bar", icon: "🍹" },
     { location: "Kirala Drink Bar", icon: "🥤" },
     { location: "Madu Ganga Fish Therapy", icon: "🐟" },
     { location: "Madu River estuary (Sea Bath place) END", icon: "🏊" },
@@ -46,7 +46,7 @@ export default function Description({ boatId = "MADU001" }) {
                 Madu River Boat Safari
               </h1>
               <p className="text-gray-600 mb-6 text-base sm:text-lg">
-                Embark on an unforgettable journey through Sri Lanka's coastal wonders
+                Embark on an unforgettable journey through Sri Lanka&lsquo;s coastal wonders
               </p>
 
               {/* Features */}
@@ -85,7 +85,7 @@ export default function Description({ boatId = "MADU001" }) {
               {/* Places We Are Visiting */}
               <div className="mb-6 sm:mb-8">
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-4 sm:mb-6">
-                  Destinations We're Exploring
+                  Destinations We&lsquo;re Exploring
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   {places.map((place, idx) => (
