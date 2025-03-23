@@ -110,28 +110,32 @@ function BookingPageContent() {
         const fetchAvailableTimeSlots = () => {
             console.log("Selected Date:", selectedDate);
             console.log("Available Slots:", availableSlots);
-            if (selectedDate && availableSlots.length > 0) {
-                const slotForDate = availableSlots.find((slot) => {
-                    const apiDate = new Date(slot.date).toLocaleDateString("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                    });
-                    return apiDate === selectedDate;
-                });
 
-                if (slotForDate) {
-                    console.log("Found slot for date:", slotForDate);
-                    setFormData((prevData) => ({
-                        ...prevData,
-                        bookingDate: slotForDate.date,
-                    }));
-                    setAvailableTimeSlots(slotForDate.availableSlots);
-                } else {
-                    console.log("No slots found for selected date");
-                    setAvailableTimeSlots([]);
-                }
+            if (!selectedDate || availableSlots.length === 0) {
+                console.log("No selected date or available slots, resetting time slots.");
+                setAvailableTimeSlots([]);
+                return;
+            }
+
+            const slotForDate = availableSlots.find((slot) => {
+                const apiDate = new Date(slot.date).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                });
+                console.log(`Comparing API Date: ${apiDate} with Selected Date: ${selectedDate}`);
+                return apiDate === selectedDate;
+            });
+
+            if (slotForDate) {
+                console.log("Found slot for date:", slotForDate);
+                setFormData((prevData) => ({
+                    ...prevData,
+                    bookingDate: slotForDate.date,
+                }));
+                setAvailableTimeSlots(slotForDate.availableSlots);
             } else {
+                console.log("No slots found for selected date:", selectedDate);
                 setAvailableTimeSlots([]);
             }
         };
@@ -168,6 +172,7 @@ function BookingPageContent() {
             year: "numeric",
         });
         if (!fullyBookedDates.has(selected)) {
+            console.log("Date selected:", selected);
             setSelectedDate(selected);
         }
     };
@@ -202,7 +207,7 @@ function BookingPageContent() {
 
         try {
             const response = await axios.post(
-                "https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/save-booking",
+                " https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/save-booking",
                 payload
             );
             if (response.status === 201) {
@@ -459,11 +464,17 @@ function BookingPageContent() {
                                     required
                                 >
                                     <option value="">Select a time slot</option>
-                                    {availableTimeSlots.map((slot) => (
-                                        <option key={slot} value={slot} className="text-black">
-                                            {slot}
+                                    {availableTimeSlots.length > 0 ? (
+                                        availableTimeSlots.map((slot) => (
+                                            <option key={slot} value={slot} className="text-black">
+                                                {slot}
+                                            </option>
+                                        ))
+                                    ) : (
+                                        <option value="" disabled>
+                                            No available time slots
                                         </option>
-                                    ))}
+                                    )}
                                 </select>
                             </div>
                             <div>
