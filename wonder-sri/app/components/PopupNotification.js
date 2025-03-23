@@ -39,7 +39,7 @@ export default function PopupNotification() {
       button: "Got it, thanks!",
     },
     si: {
-      title: "වන්ඩර්ස්රි වෙත ඔබව සාදරයෙන් පිළිගනිමු!",
+      title: "වොන්ඩ ශ්‍රී වෙත ඔබව සාදරයෙන් පිළිගනිමු!",
       message:
         "  දැනට අපගේ සේවාවන<span className='font-semibold'> දකුණු පළාතට</span> පමණක් සීමා වී ඇත. ඇතිව අපහසුතාවයකට අපි සමාව ඉල්ලා සිටිමු,",
       button: "හරි, තුති!",

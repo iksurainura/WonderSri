@@ -20,8 +20,8 @@ export default function BookingLookup() {
       // Determine if the input is a Gmail or booking code
       const isGmail = input.includes("@"); // Simple check for "@" to identify Gmail
       const apiUrl = isGmail
-        ? `http://localhost:8081/api/bookings/by-email/${input}` // Endpoint for Gmail
-        : `http://localhost:8081/api/bookings/${input}`; // Endpoint for booking code
+        ? `http://localhost:8081/api/v1/bookings/booking-by-email/${input}` // Endpoint for Gmail
+        : `http://localhost:8081/api/v1/bookings/booking-by-code/${input}`; // Endpoint for booking code
 
       const response = await fetch(apiUrl);
 
@@ -110,22 +110,7 @@ export default function BookingLookup() {
                   {booking.timeSlot}
                 </span>
               </div>
-              <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
-                <span className="text-[#2B78FE] font-semibold min-w-[100px]">
-                  Status:
-                </span>
-                <span
-                  className={`font-medium ${
-                    booking.status === "Confirmed"
-                      ? "text-green-600"
-                      : booking.status === "Pending"
-                      ? "text-yellow-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {booking.status}
-                </span>
-              </div>
+              
               <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-lg">
                 <span className="text-[#2B78FE] font-semibold min-w-[100px]">
                   User:

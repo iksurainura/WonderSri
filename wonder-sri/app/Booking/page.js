@@ -1,31 +1,35 @@
-"use client"; // Ensure this is a Client Component
+"use client";
 
-import { Suspense } from "react"; // Import Suspense
-import Image from "next/image";
+import { Suspense } from "react";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useSearchParams } from "next/navigation";
 
-const today = new Date("2025-03-07");
+const today = new Date("2025-03-22");
 
 function BookingPageContent() {
-  const searchParams = useSearchParams(); // Get query parameters
-  const activityTitle = searchParams.get("title") || ""; // Get the activity title from URL
+  const searchParams = useSearchParams();
+  const activityTitle = searchParams.get("title") || "";
+  const boatId = searchParams.get("boatId") || 1;
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    boatId: boatId,
+    userName: "",
+    userEmail: "",
+    userPhone: "",
     pax: 1,
-    date: "",
+    bookingDate: "",
     timeSlot: "",
-    activity: activityTitle, // Add activity title to form data
+    promoCode: "", // Added promoCode
+    activity: activityTitle,
   });
 
   const [selectedDate, setSelectedDate] = useState("");
   const [months, setMonths] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState([]);
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
+  const [fullyBookedDates, setFullyBookedDates] = useState(new Set());
   const [recaptchaToken, setRecaptchaToken] = useState(null);
   const recaptchaRef = useRef(null);
 
@@ -33,16 +37,26 @@ function BookingPageContent() {
     const generateMonths = () => {
       const currentMonth = today.getMonth();
       const currentYear = today.getFullYear();
+      const fourDaysFromNow = new Date(today);
+      fourDaysFromNow.setDate(today.getDate() + 4);
+
       const monthsData = [
         {
-          name: new Date(currentYear, currentMonth).toLocaleString("default", { month: "long", year: "numeric" }),
+          name: fourDaysFromNow.toLocaleString("default", { month: "long", year: "numeric" }),
           days: new Array(new Date(currentYear, currentMonth + 1, 0).getDate())
             .fill(null)
-            .map((_, i) => i + 1),
-          startDay: new Date(currentYear, currentMonth, 1).getDay(),
+            .map((_, i) => i + 1)
+            .filter((day) => {
+              const date = new Date(currentYear, currentMonth, day);
+              return date >= fourDaysFromNow;
+            }),
+          startDay: new Date(currentYear, currentMonth, fourDaysFromNow.getDate()).getDay(),
         },
         {
-          name: new Date(currentYear, currentMonth + 1).toLocaleString("default", { month: "long", year: "numeric" }),
+          name: new Date(currentYear, currentMonth + 1).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          }),
           days: new Array(new Date(currentYear, currentMonth + 2, 0).getDate())
             .fill(null)
             .map((_, i) => i + 1),
@@ -52,25 +66,58 @@ function BookingPageContent() {
       setMonths(monthsData);
     };
     generateMonths();
+    fetchAllAvailableSlots();
   }, []);
 
-  useEffect(() => {
-    const fetchAvailableTimeSlots = async () => {
-      if (selectedDate) {
-        try {
-          const [month, day, year] = selectedDate.split(" ");
-          const dateStr = `${year}-${new Date(`${month} 1, ${year}`).toLocaleString("default", { month: "2-digit" })}-${day.padStart(2, "0")}`;
-          const response = await axios.get(`/api/available-slots?date=${dateStr}`);
-          setAvailableTimeSlots(response.data.slots || ["9:00 AM", "12:00 PM", "3:00 PM"]);
-          setFormData((prevData) => ({ ...prevData, date: selectedDate }));
-        } catch (error) {
-          console.error("Error fetching available time slots:", error);
-          setAvailableTimeSlots(["9:00 AM", "12:00 PM", "3:00 PM"]);
+  const fetchAllAvailableSlots = async () => {
+    try {
+      const response = await axios.get("http://localhost:8081/api/v1/bookings/available-slots");
+      console.log("Fetched available slots:", response.data);
+      const slotsData = response.data;
+      const fullyBooked = new Set();
+
+      slotsData.forEach(({ date, availableSlots }) => {
+        if (availableSlots.length === 0) {
+          fullyBooked.add(
+            new Date(date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+          );
         }
+      });
+      setFullyBookedDates(fullyBooked);
+      setAvailableSlots(slotsData);
+    } catch (error) {
+      console.error("Error fetching available slots:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchAvailableTimeSlots = () => {
+      console.log("Selected Date:", selectedDate);
+      console.log("Available Slots:", availableSlots);
+      if (selectedDate && availableSlots.length > 0) {
+        const slotForDate = availableSlots.find((slot) => {
+          const apiDate = new Date(slot.date).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          });
+          return apiDate === selectedDate;
+        });
+
+        if (slotForDate) {
+          console.log("Found slot for date:", slotForDate);
+          setFormData((prevData) => ({ ...prevData, bookingDate: slotForDate.date }));
+          setAvailableTimeSlots(slotForDate.availableSlots);
+        } else {
+          console.log("No slots found for selected date");
+          setAvailableTimeSlots([]);
+        }
+      } else {
+        setAvailableTimeSlots([]);
       }
     };
     fetchAvailableTimeSlots();
-  }, [selectedDate]);
+  }, [selectedDate, availableSlots]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -97,7 +144,9 @@ function BookingPageContent() {
       day: "numeric",
       year: "numeric",
     });
-    setSelectedDate(selected);
+    if (!fullyBookedDates.has(selected)) {
+      setSelectedDate(selected);
+    }
   };
 
   const handleRecaptchaChange = (token) => {
@@ -110,65 +159,95 @@ function BookingPageContent() {
       alert("Please complete the reCAPTCHA.");
       return;
     }
+  
+    const payload = {
+      boatId: formData.boatId,
+      userName: formData.userName,
+      userEmail: formData.userEmail,
+      userPhone: formData.userPhone,
+      bookingDate: formData.bookingDate,
+      timeSlot: formData.timeSlot === "08:00-01:00" ? "SLOT_1" : "SLOT_2",
+      promoCode: formData.promoCode.trim() === "" ? null : formData.promoCode, // Send null if empty
+    };
+  
+    console.log("Submitting payload:", payload);
+  
     try {
-      const response = await axios.post("/api/bookings", { // Changed endpoint to /api/bookings
-        ...formData,
-        recaptchaToken,
-      });
-      if (response.data.success) {
-        console.log("Booking Submitted:", formData);
+      const response = await axios.post("http://localhost:8081/api/v1/bookings/save-booking", payload);
+      if (response.status === 201) {
+        console.log("Booking Submitted:", payload);
         alert("Booking submitted successfully!");
+        setFormData({
+          boatId: boatId,
+          userName: "",
+          userEmail: "",
+          userPhone: "",
+          pax: 1,
+          bookingDate: "",
+          timeSlot: "",
+          promoCode: "",
+          activity: activityTitle,
+        });
+        setSelectedDate("");
       } else {
         alert("Booking failed. Please try again.");
       }
     } catch (error) {
-      console.error("Error submitting booking:", error);
-      alert("An error occurred. Please try again.");
+      console.error("Error submitting booking:", error.message);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        alert("Booking failed: " + (error.response.data.error || error.response.data.message || "Bad Request"));
+      } else {
+        alert("Booking failed: Network error");
+      }
     }
     recaptchaRef.current?.reset();
   };
-
+  
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-6xl mx-auto py-8 px-4 md:px-8 relative overflow-hidden">
         <h2 className="text-2xl font-bold text-black mb-6">Book Your Activity: {activityTitle}</h2>
 
         <div className="mb-8 bg-white rounded-xl shadow-lg p-6">
-          <div className="flex justify-between mb-4">
-            <button className="text-black hover:text-gray-600" aria-label="Previous Months">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button className="text-black hover:text-gray-600" aria-label="Next Months">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
           <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
             {months.map((month) => (
               <div key={month.name} className="flex-1 border border-gray-300 rounded-lg p-4 bg-white">
                 <h2 className="text-lg font-semibold text-black text-center mb-3">{month.name}</h2>
                 <div className="grid grid-cols-7 gap-2 text-center text-black font-medium">
-                  <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+                  <div>S</div>
+                  <div>M</div>
+                  <div>T</div>
+                  <div>W</div>
+                  <div>T</div>
+                  <div>F</div>
+                  <div>S</div>
                 </div>
                 <div className="grid grid-cols-7 gap-2 mt-3 text-center">
-                  {Array(month.startDay).fill(null).map((_, i) => (
-                    <div key={`empty-${i}`} className="p-2"></div>
-                  ))}
+                  {Array(month.startDay)
+                    .fill(null)
+                    .map((_, i) => (
+                      <div key={`empty-${i}`} className="p-2"></div>
+                    ))}
                   {month.days.map((day) => {
-                    const isSelected = selectedDate === new Date(
+                    const dateStr = new Date(
                       parseInt(month.name.split(" ")[1], 10),
                       new Date(`${month.name.split(" ")[0]} 1, ${month.name.split(" ")[1]}`).getMonth(),
                       day
                     ).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+                    const isSelected = selectedDate === dateStr;
+                    const isDisabled = fullyBookedDates.has(dateStr);
                     return (
                       <div
                         key={day}
-                        onClick={() => handleDateSelect(month.name, day)}
+                        onClick={() => !isDisabled && handleDateSelect(month.name, day)}
                         className={`p-2 rounded-full cursor-pointer transition-colors duration-200 ${
-                          isSelected ? "bg-blue-500 text-white font-bold" : "text-black hover:bg-gray-200"
+                          isSelected
+                            ? "bg-blue-500 text-white font-bold"
+                            : isDisabled
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            : "text-black hover:bg-gray-200"
                         }`}
                       >
                         {day}
@@ -179,7 +258,7 @@ function BookingPageContent() {
               </div>
             ))}
           </div>
-          <p className="mt-4 text-center text-black text-sm">I don’t know my dates yet</p>
+          <p className="mt-4 text-center text-black text-sm">Bookings available 4 days in advance</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
@@ -187,14 +266,14 @@ function BookingPageContent() {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-black mb-1">
+                <label htmlFor="userName" className="block text-sm font-medium text-black mb-1">
                   Full Name
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  id="userName"
+                  name="userName"
+                  value={formData.userName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-black"
                   placeholder="Enter your name"
@@ -202,14 +281,14 @@ function BookingPageContent() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-black mb-1">
+                <label htmlFor="userEmail" className="block text-sm font-medium text-black mb-1">
                   Email Address
                 </label>
                 <input
                   type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
+                  id="userEmail"
+                  name="userEmail"
+                  value={formData.userEmail}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-black"
                   placeholder="Enter your email"
@@ -217,20 +296,36 @@ function BookingPageContent() {
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-black mb-1">
+                <label htmlFor="userPhone" className="block text-sm font-medium text-black mb-1">
                   Phone Number
                 </label>
                 <input
                   type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
+                  id="userPhone"
+                  name="userPhone"
+                  value={formData.userPhone}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-black"
                   placeholder="Enter your phone number"
                   required
                 />
               </div>
+              <div>
+                <label htmlFor="promoCode" className="block text-sm font-medium text-black mb-1">
+                  Promotional Code (Optional)
+                </label>
+                <input
+                  type="text"
+                  id="promoCode"
+                  name="promoCode"
+                  value={formData.promoCode}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-black"
+                  placeholder="Enter promo code (e.g., DISCOUNT10)"
+                />
+              </div>
+            </div>
+            <div className="space-y-5">
               <div>
                 <label htmlFor="pax" className="block text-sm font-medium text-black mb-1">
                   Number of Pax
@@ -261,8 +356,6 @@ function BookingPageContent() {
                   </button>
                 </div>
               </div>
-            </div>
-            <div className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-black mb-1">Selected Date</label>
                 <p className="text-black px-4 py-2 bg-gray-50 rounded-lg border border-gray-300">
@@ -292,7 +385,7 @@ function BookingPageContent() {
               <div>
                 <ReCAPTCHA
                   ref={recaptchaRef}
-                  sitekey="6LfWUfYqAAAAAHMl0Z0GAoZbAjNfJKiIkMtudqki" // Replace with your actual site key
+                  sitekey="6LfWUfYqAAAAAHMl0Z0GAoZbAjNfJKiIkMtudqki"
                   onChange={handleRecaptchaChange}
                 />
               </div>

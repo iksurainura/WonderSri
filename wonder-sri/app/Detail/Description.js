@@ -85,7 +85,7 @@ export default function Description({ boatId = "MADU001" }) {
               {/* Places We Are Visiting */}
               <div className="mb-8">
                 <h2 className="text-3xl font-semibold text-gray-900 mb-6">
-                  Places We Are Visiting
+                Destinations We're Exploring
                 </h2>
                 <div className="grid grid-cols-2 gap-6">
                   {places.map((place, idx) => (

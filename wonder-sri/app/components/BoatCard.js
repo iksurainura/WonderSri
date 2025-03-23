@@ -1,33 +1,51 @@
 "use client"; // Add this since we're using client-side features
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function Activities() {
   const router = useRouter();
+  const [activities, setActivities] = useState([]);
 
-  const activities = [
-    {
-      title: "Madu River Safari",
-      description:
-        "Explore the serene beauty of the Madu River with an unforgettable safari experience.",
-      duration: "3-Hours",
-      originalPrice: "Rs. 10,000",
-      discountedPrice: "Rs. 9,000 / for 12 pax",
-      imageUrl:
-        "https://www.trawell.in/admin/images/upload/116283209Madu_River_Safari.jpg",
-      rating: "★★★★☆",
-    },
-  ];
+  // Fetch data from the API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8081/api/v1/boats/front-page");
+        const data = response.data;
 
-  const handleBookNow = (title) => {
-    // Redirect to the booking page with the activity title as a query parameter
-    router.push(`/Booking?title=${encodeURIComponent(title)}`);
+        // Map the API response to your activities structure, including boatId
+        const mappedActivities = data.map((boat) => ({
+          boatId: boat.id, // Add boatId to the activity object
+          title: boat.name,
+          description: boat.description,
+          duration: "3-Hours", // You can modify this if needed
+          originalPrice: "Rs.10000",
+          discountedPrice: `Rs. ${boat.price} / for ${boat.capacity} pax`,
+          imageUrl: boat.imageUrls[0], // Use the first image URL
+          rating: "★★★★☆", // You can modify this if needed
+        }));
+
+        setActivities(mappedActivities);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleBookNow = (boatId) => {
+    // Redirect to the booking page with the boatId as a query parameter
+    router.push(`/Booking?boatId=${encodeURIComponent(boatId)}`);
   };
-  const detail = (title) => {
-    // Redirect to the booking page with the activity title as a query parameter
-    router.push(`/Detail?title=${encodeURIComponent(title)}`);
+
+  const handleDetail = (boatId) => {
+    // Redirect to the detail page with the boatId as a query parameter
+    router.push(`/Detail?boatId=${encodeURIComponent(boatId)}`);
   };
+
   return (
     <>
       <div className="bg-blue-500 w-full pt-16">
@@ -109,7 +127,7 @@ export default function Activities() {
                   </div>
                   <div className="flex gap-2">
                     <button
-                    onClick={() => detail(activity.title)}
+                      onClick={() => handleDetail(activity.boatId)}
                       className="flex-1 bg-blue-800 text-white text-sm py-2 px-4 rounded hover:bg-blue-900 transition-colors duration-200"
                       style={{
                         fontFamily: "Poppins, sans-serif",
@@ -119,7 +137,7 @@ export default function Activities() {
                       More Details
                     </button>
                     <button
-                      onClick={() => handleBookNow(activity.title)}
+                      onClick={() => handleBookNow(activity.boatId)}
                       className="flex-1 bg-blue-400 text-white text-sm py-2 px-4 rounded hover:bg-blue-500 transition-colors duration-200"
                       style={{
                         fontFamily: "Poppins, sans-serif",

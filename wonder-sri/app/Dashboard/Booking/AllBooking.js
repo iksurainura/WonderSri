@@ -11,7 +11,7 @@ const AllBooking = () => {
     const fetchBookings = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:8081/api/bookings/all-bookings');
+        const response = await fetch('http://localhost:8081/api/v1/bookings/all-bookings');
         
         if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
