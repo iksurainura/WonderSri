@@ -42,7 +42,10 @@ function BookingPageContent() {
 
       const monthsData = [
         {
-          name: fourDaysFromNow.toLocaleString("default", { month: "long", year: "numeric" }),
+          name: fourDaysFromNow.toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          }),
           days: new Array(new Date(currentYear, currentMonth + 1, 0).getDate())
             .fill(null)
             .map((_, i) => i + 1)
@@ -50,13 +53,20 @@ function BookingPageContent() {
               const date = new Date(currentYear, currentMonth, day);
               return date >= fourDaysFromNow;
             }),
-          startDay: new Date(currentYear, currentMonth, fourDaysFromNow.getDate()).getDay(),
+          startDay: new Date(
+            currentYear,
+            currentMonth,
+            fourDaysFromNow.getDate()
+          ).getDay(),
         },
         {
-          name: new Date(currentYear, currentMonth + 1).toLocaleString("default", {
-            month: "long",
-            year: "numeric",
-          }),
+          name: new Date(currentYear, currentMonth + 1).toLocaleString(
+            "default",
+            {
+              month: "long",
+              year: "numeric",
+            }
+          ),
           days: new Array(new Date(currentYear, currentMonth + 2, 0).getDate())
             .fill(null)
             .map((_, i) => i + 1),
@@ -71,7 +81,9 @@ function BookingPageContent() {
 
   const fetchAllAvailableSlots = async () => {
     try {
-      const response = await axios.get("http://localhost:8081/api/v1/bookings/available-slots");
+      const response = await axios.get(
+        "https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/available-slots"
+      );
       console.log("Fetched available slots:", response.data);
       const slotsData = response.data;
       const fullyBooked = new Set();
@@ -79,7 +91,11 @@ function BookingPageContent() {
       slotsData.forEach(({ date, availableSlots }) => {
         if (availableSlots.length === 0) {
           fullyBooked.add(
-            new Date(date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+            new Date(date).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })
           );
         }
       });
@@ -106,7 +122,10 @@ function BookingPageContent() {
 
         if (slotForDate) {
           console.log("Found slot for date:", slotForDate);
-          setFormData((prevData) => ({ ...prevData, bookingDate: slotForDate.date }));
+          setFormData((prevData) => ({
+            ...prevData,
+            bookingDate: slotForDate.date,
+          }));
           setAvailableTimeSlots(slotForDate.availableSlots);
         } else {
           console.log("No slots found for selected date");
@@ -139,7 +158,11 @@ function BookingPageContent() {
   const handleDateSelect = (month, day) => {
     const [monthName, year] = month.split(" ");
     const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth();
-    const selected = new Date(parseInt(year, 10), monthIndex, day).toLocaleDateString("en-US", {
+    const selected = new Date(
+      parseInt(year, 10),
+      monthIndex,
+      day
+    ).toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
       year: "numeric",
@@ -159,7 +182,7 @@ function BookingPageContent() {
       alert("Please complete the reCAPTCHA.");
       return;
     }
-  
+
     const payload = {
       boatId: formData.boatId,
       userName: formData.userName,
@@ -169,11 +192,14 @@ function BookingPageContent() {
       timeSlot: formData.timeSlot === "08:00-01:00" ? "SLOT_1" : "SLOT_2",
       promoCode: formData.promoCode.trim() === "" ? null : formData.promoCode, // Send null if empty
     };
-  
+
     console.log("Submitting payload:", payload);
-  
+
     try {
-      const response = await axios.post("http://localhost:8081/api/v1/bookings/save-booking", payload);
+      const response = await axios.post(
+        "https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/save-booking",
+        payload
+      );
       if (response.status === 201) {
         console.log("Booking Submitted:", payload);
         alert("Booking submitted successfully!");
@@ -197,24 +223,36 @@ function BookingPageContent() {
       if (error.response) {
         console.error("Response data:", error.response.data);
         console.error("Response status:", error.response.status);
-        alert("Booking failed: " + (error.response.data.error || error.response.data.message || "Bad Request"));
+        alert(
+          "Booking failed: " +
+            (error.response.data.error ||
+              error.response.data.message ||
+              "Bad Request")
+        );
       } else {
         alert("Booking failed: Network error");
       }
     }
     recaptchaRef.current?.reset();
   };
-  
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-6xl mx-auto py-8 px-4 md:px-8 relative overflow-hidden">
-        <h2 className="text-2xl font-bold text-black mb-6">Book Your Activity: {activityTitle}</h2>
+        <h2 className="text-3xl font-extrabold text-blue-600 mb-8">
+          Embark on an Adventure: Book Your Boat Ride
+        </h2>
 
         <div className="mb-8 bg-white rounded-xl shadow-lg p-6">
           <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
             {months.map((month) => (
-              <div key={month.name} className="flex-1 border border-gray-300 rounded-lg p-4 bg-white">
-                <h2 className="text-lg font-semibold text-black text-center mb-3">{month.name}</h2>
+              <div
+                key={month.name}
+                className="flex-1 border border-gray-300 rounded-lg p-4 bg-white"
+              >
+                <h2 className="text-lg font-semibold text-black text-center mb-3">
+                  {month.name}
+                </h2>
                 <div className="grid grid-cols-7 gap-2 text-center text-black font-medium">
                   <div>S</div>
                   <div>M</div>
@@ -233,15 +271,25 @@ function BookingPageContent() {
                   {month.days.map((day) => {
                     const dateStr = new Date(
                       parseInt(month.name.split(" ")[1], 10),
-                      new Date(`${month.name.split(" ")[0]} 1, ${month.name.split(" ")[1]}`).getMonth(),
+                      new Date(
+                        `${month.name.split(" ")[0]} 1, ${
+                          month.name.split(" ")[1]
+                        }`
+                      ).getMonth(),
                       day
-                    ).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+                    ).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    });
                     const isSelected = selectedDate === dateStr;
                     const isDisabled = fullyBookedDates.has(dateStr);
                     return (
                       <div
                         key={day}
-                        onClick={() => !isDisabled && handleDateSelect(month.name, day)}
+                        onClick={() =>
+                          !isDisabled && handleDateSelect(month.name, day)
+                        }
                         className={`p-2 rounded-full cursor-pointer transition-colors duration-200 ${
                           isSelected
                             ? "bg-blue-500 text-white font-bold"
@@ -258,15 +306,25 @@ function BookingPageContent() {
               </div>
             ))}
           </div>
-          <p className="mt-4 text-center text-black text-sm">Bookings available 4 days in advance</p>
+          <p className="mt-4 text-center text-black text-sm">
+            Bookings available 4 days in advance
+          </p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-          <h3 className="text-xl font-semibold text-black mb-6">Complete Your Booking</h3>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h3 className="text-xl font-semibold text-black mb-6">
+            Complete Your Booking
+          </h3>
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
             <div className="space-y-5">
               <div>
-                <label htmlFor="userName" className="block text-sm font-medium text-black mb-1">
+                <label
+                  htmlFor="userName"
+                  className="block text-sm font-medium text-black mb-1"
+                >
                   Full Name
                 </label>
                 <input
@@ -281,7 +339,10 @@ function BookingPageContent() {
                 />
               </div>
               <div>
-                <label htmlFor="userEmail" className="block text-sm font-medium text-black mb-1">
+                <label
+                  htmlFor="userEmail"
+                  className="block text-sm font-medium text-black mb-1"
+                >
                   Email Address
                 </label>
                 <input
@@ -296,7 +357,10 @@ function BookingPageContent() {
                 />
               </div>
               <div>
-                <label htmlFor="userPhone" className="block text-sm font-medium text-black mb-1">
+                <label
+                  htmlFor="userPhone"
+                  className="block text-sm font-medium text-black mb-1"
+                >
                   Phone Number
                 </label>
                 <input
@@ -311,7 +375,10 @@ function BookingPageContent() {
                 />
               </div>
               <div>
-                <label htmlFor="promoCode" className="block text-sm font-medium text-black mb-1">
+                <label
+                  htmlFor="promoCode"
+                  className="block text-sm font-medium text-black mb-1"
+                >
                   Promotional Code (Optional)
                 </label>
                 <input
@@ -327,7 +394,10 @@ function BookingPageContent() {
             </div>
             <div className="space-y-5">
               <div>
-                <label htmlFor="pax" className="block text-sm font-medium text-black mb-1">
+                <label
+                  htmlFor="pax"
+                  className="block text-sm font-medium text-black mb-1"
+                >
                   Number of Pax
                 </label>
                 <div className="flex items-center space-x-3">
@@ -336,7 +406,9 @@ function BookingPageContent() {
                     onClick={() => handlePaxChange("decrement")}
                     disabled={formData.pax <= 1}
                     className={`w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full text-black font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                      formData.pax <= 1 ? "bg-gray-100 cursor-not-allowed text-gray-500" : "bg-white hover:bg-gray-200"
+                      formData.pax <= 1
+                        ? "bg-gray-100 cursor-not-allowed text-gray-500"
+                        : "bg-white hover:bg-gray-200"
                     }`}
                   >
                     -
@@ -349,7 +421,9 @@ function BookingPageContent() {
                     onClick={() => handlePaxChange("increment")}
                     disabled={formData.pax >= 20}
                     className={`w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full text-black font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                      formData.pax >= 20 ? "bg-gray-100 cursor-not-allowed text-gray-500" : "bg-white hover:bg-gray-200"
+                      formData.pax >= 20
+                        ? "bg-gray-100 cursor-not-allowed text-gray-500"
+                        : "bg-white hover:bg-gray-200"
                     }`}
                   >
                     +
@@ -357,13 +431,18 @@ function BookingPageContent() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-1">Selected Date</label>
+                <label className="block text-sm font-medium text-black mb-1">
+                  Selected Date
+                </label>
                 <p className="text-black px-4 py-2 bg-gray-50 rounded-lg border border-gray-300">
                   {selectedDate || "No date selected"}
                 </p>
               </div>
               <div>
-                <label htmlFor="timeSlot" className="block text-sm font-medium text-black mb-1">
+                <label
+                  htmlFor="timeSlot"
+                  className="block text-sm font-medium text-black mb-1"
+                >
                   Select Time Slot
                 </label>
                 <select

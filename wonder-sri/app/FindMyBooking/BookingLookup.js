@@ -20,8 +20,8 @@ export default function BookingLookup() {
       // Determine if the input is a Gmail or booking code
       const isGmail = input.includes("@"); // Simple check for "@" to identify Gmail
       const apiUrl = isGmail
-        ? `http://localhost:8081/api/v1/bookings/booking-by-email/${input}` // Endpoint for Gmail
-        : `http://localhost:8081/api/v1/bookings/booking-by-code/${input}`; // Endpoint for booking code
+        ? `https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/booking-by-email/${input}` // Endpoint for Gmail
+        : `https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/booking-by-code/${input}`; // Endpoint for booking code
 
       const response = await fetch(apiUrl);
 
