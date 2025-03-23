@@ -98,6 +98,9 @@ const Footer = () => {
           <p>
             Part of the <span className="text-blue-600">Wonder Sri Group</span>.
           </p>
+          <p>
+           Designed and Developed by <span className="text-blue-600">Iksura Wickrmathunga</span>.
+          </p>
         </div>
       </div>
     </footer>
