@@ -6,7 +6,7 @@ import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useSearchParams } from "next/navigation";
 
-const today = new Date("2025-03-22");
+const today = new Date();
 
 function BookingPageContent() {
     const searchParams = useSearchParams();
