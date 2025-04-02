@@ -75,7 +75,7 @@ const AllBooking = () => {
         });
 
         const response = await fetch(
-          "http://localhost:8081/api/v1/boats/save-boat",
+          "https://wondersri-com-backend.onrender.com/api/v1/boats/save-boat",
           {
             method: "POST",
             body: formDataToSend,

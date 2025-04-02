@@ -82,7 +82,7 @@ function BookingPageContent() {
     const fetchAllAvailableSlots = async () => {
         try {
             const response = await axios.get(
-                "https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/available-slots"
+                "https://wondersri-com-backend.onrender.com/api/v1/bookings/available-slots"
             );
             console.log("Fetched available slots:", response.data);
             const slotsData = response.data;
@@ -207,7 +207,7 @@ function BookingPageContent() {
 
         try {
             const response = await axios.post(
-                " https://wondersri-backend-3bpi.onrender.com/api/v1/bookings/save-booking",
+                " https://wondersri-com-backend.onrender.com/api/v1/bookings/save-booking",
                 payload
             );
             if (response.status === 201) {

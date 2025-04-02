@@ -12,7 +12,7 @@ export default function Activities() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://wondersri-backend-3bpi.onrender.com/api/v1/boats/front-page");
+        const response = await axios.get("https://wondersri-com-backend.onrender.com/api/v1/boats/front-page");
         const data = response.data;
 
         // Map the API response to your activities structure, including boatId
