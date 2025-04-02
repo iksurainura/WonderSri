@@ -41,8 +41,8 @@ export default function BookingLookup() {
   return (
     <div className="min-h-screen bg-[url('/boats.png')] bg-cover bg-center flex items-center justify-center">
       <div className="bg-black/70 p-8 rounded-lg space-y-6 w-full max-w-md">
-        <Image
-          src="/logo.png"
+        <img
+          src="/Logo.png"
           alt="WonderSri Logo"
           width={150}
           height={150}
